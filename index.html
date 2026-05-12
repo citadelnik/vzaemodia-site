@@ -22,15 +22,15 @@
         .chart-container {
             position: relative;
             width: 100%;
-            max-width: 800px;
+            max-width: 900px;
             margin-left: auto;
             margin-right: auto;
-            height: 350px;
-            max-height: 400px;
+            height: 400px;
+            max-height: 450px;
         }
         @media (min-width: 768px) {
             .chart-container {
-                height: 400px;
+                height: 450px;
             }
         }
         
@@ -288,7 +288,8 @@
             "6. Лояльність (Залишили відгук/Рекомендацію)"
         ];
         
-        const funnelWrappedLabels = funnelRawLabels.map(label => wrapLabelText(label));
+        // Оптимізація обгортання для вертикальних стовпчиків
+        const funnelWrappedLabels = funnelRawLabels.map(label => wrapLabelText(label, 14));
 
         const ctxFunnel = document.getElementById('funnelChart').getContext('2d');
         new Chart(ctxFunnel, {
@@ -306,11 +307,10 @@
                         '#F472B6',
                         '#FBCFE8'
                     ],
-                    borderRadius: 6
+                    borderRadius: 8
                 }]
             },
             options: {
-                indexAxis: 'y',
                 maintainAspectRatio: false,
                 responsive: true,
                 plugins: {
@@ -319,11 +319,16 @@
                 },
                 scales: {
                     x: {
-                        grid: { color: '#E2E8F0' },
-                        title: { display: true, text: 'Прогнозована кількість (Воронка)', color: '#64748B' }
+                        grid: { display: false },
+                        ticks: {
+                            font: { size: 11 },
+                            autoSkip: false
+                        }
                     },
                     y: {
-                        grid: { display: false }
+                        beginAtZero: true,
+                        grid: { color: '#E2E8F0' },
+                        title: { display: true, text: 'Прогнозована кількість', color: '#64748B' }
                     }
                 }
             }
