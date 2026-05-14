@@ -9,29 +9,27 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<!-- Замінено шрифт на Montserrat для відповідності стилю на скріншоті -->
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
 <style>
 .vz3-root {
-  /* НОВА ПАЛІТРА ЗІ СКРІНШОТУ "ПРО НАС" */
-  --vz3-bg:          #FDFBF6; /* Світло-кремовий фон */
-  --vz3-bg-2:        #F4EFE6; /* Трохи темніший кремовий для контрасту */
+  --vz3-bg:          #FDFBF6; 
+  --vz3-bg-2:        #F4EFE6; 
   --vz3-bg-3:        #EAE2D3;
-  --vz3-bg-dark:     #5C553A; /* Глибокий оливково-коричневий */
+  --vz3-bg-dark:     #5C553A; 
   --vz3-bg-card:     #FFFFFF;
 
-  --vz3-ink:         #2A2821; /* Майже чорний для тексту */
+  --vz3-ink:         #2A2821; 
   --vz3-ink-2:       #514E43;
   --vz3-ink-3:       #7A7565;
-  --vz3-ink-light:   #FDFBF6; /* Світлий текст на темному фоні */
+  --vz3-ink-light:   #FDFBF6; 
 
-  --vz3-orange:      #F08C23; /* Яскравий оранжевий акцент */
+  --vz3-orange:      #F08C23; 
   --vz3-orange-2:    #DE7A10;
   --vz3-orange-soft: #FDE8D3;
   --vz3-orange-tint: rgba(240, 140, 35, 0.12);
 
-  --vz3-green:       #5C553A; /* Адаптовано під основний темний */
+  --vz3-green:       #5C553A; 
   --vz3-green-soft:  #E8E6DF;
   --vz3-red:         #C44545;
   --vz3-red-soft:    #F8DCDC;
@@ -43,7 +41,6 @@
   --vz3-shadow-md:   0 8px 24px rgba(92, 85, 58, 0.12);
   --vz3-shadow-lg:   0 16px 48px rgba(92, 85, 58, 0.15);
 
-  /* Радіуси зменшено, щоб відповідати класичному стилю скріншоту */
   --vz3-radius-sm:   4px;
   --vz3-radius-md:   8px;
   --vz3-radius-lg:   12px;
@@ -56,7 +53,7 @@
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  font-size: 16px; /* Трохи зменшено базовий розмір для акуратності Montserrat */
+  font-size: 16px; 
 }
 
 .vz3-root *,
@@ -87,6 +84,11 @@
   margin-bottom: 24px;
   border: 1px solid rgba(240, 140, 35, 0.2);
 }
+.vz3-tag--hero { 
+  background: rgba(255,255,255,0.05); 
+  border-color: rgba(255,255,255,0.2); 
+  color: var(--vz3-orange-soft); 
+}
 
 .vz3-h2 {
   font-weight: 700;
@@ -101,7 +103,6 @@
   color: var(--vz3-orange);
   position: relative;
 }
-/* Замість підкреслення робимо просто акцентним кольором, як на скріні */
 .vz3-h2 em::after { display: none; }
 
 .vz3-lede {
@@ -129,6 +130,7 @@
   white-space: nowrap;
   letter-spacing: 0.02em;
   text-transform: uppercase;
+  text-align: center;
 }
 
 .vz3-btn--primary {
@@ -158,13 +160,29 @@
   color: white;
 }
 
+.vz3-btn--hero-secondary {
+  background: transparent;
+  color: white;
+  padding: 16px 32px;
+  border-radius: var(--vz3-radius-sm);
+  border: 2px solid rgba(255,255,255,0.6);
+}
+.vz3-btn--hero-secondary:hover {
+  border-color: white;
+  background: rgba(255,255,255,0.1);
+}
+
 .vz3-btn--lg { padding: 18px 40px; font-size: 15px; }
 
-/* ============ HERO ============ */
+/* ============ HERO (ОНОВЛЕНО) ============ */
 
 .vz3-hero {
-  background: var(--vz3-bg-2);
-  padding: 100px 0 120px;
+  /* Встановлюємо темний атмосферний фон (градієнт поверх плейсхолдера фото) */
+  background-color: var(--vz3-bg-dark);
+  background-image: linear-gradient(to bottom, rgba(42, 40, 33, 0.85), rgba(92, 85, 58, 0.95)), url('https://images.unsplash.com/photo-1518608229412-f483c65691f1?q=80&w=2070&auto=format&fit=crop');
+  background-size: cover;
+  background-position: center;
+  padding: 140px 0 160px;
   position: relative;
   overflow: hidden;
   border-bottom: 1px solid var(--vz3-line);
@@ -176,39 +194,26 @@
   right: -50px;
   width: 600px;
   height: 600px;
-  background: radial-gradient(circle, var(--vz3-orange-soft), transparent 60%);
+  background: radial-gradient(circle, rgba(240, 140, 35, 0.15), transparent 60%);
   pointer-events: none;
   z-index: 1;
-  opacity: 0.5;
-}
-
-.vz3-hero__decor-2 {
-  position: absolute;
-  bottom: -150px;
-  left: -100px;
-  width: 400px;
-  height: 400px;
-  background: radial-gradient(circle, var(--vz3-line-soft), transparent 70%);
-  pointer-events: none;
-  z-index: 1;
-  opacity: 0.6;
 }
 
 .vz3-hero__inner {
   position: relative;
   z-index: 2;
   text-align: center;
-  max-width: 920px;
+  max-width: 980px;
   margin: 0 auto;
 }
 
 .vz3-hero__title {
   font-weight: 800;
-  font-size: clamp(32px, 5.5vw, 60px);
+  font-size: clamp(32px, 5.5vw, 64px);
   line-height: 1.15;
   letter-spacing: -0.02em;
-  margin: 0 0 24px;
-  color: var(--vz3-bg-dark); /* Темно-оливковий із скріншоту */
+  margin: 0 0 28px;
+  color: white;
 }
 .vz3-hero__title em {
   font-style: normal;
@@ -217,11 +222,15 @@
 
 .vz3-hero__sub {
   font-size: clamp(17px, 2vw, 20px);
-  color: var(--vz3-ink-2);
+  color: rgba(255, 255, 255, 0.85);
   line-height: 1.6;
-  margin: 0 auto 40px;
-  max-width: 760px;
-  font-weight: 500;
+  margin: 0 auto 48px;
+  max-width: 800px;
+  font-weight: 400;
+}
+.vz3-hero__sub strong {
+  color: white;
+  font-weight: 700;
 }
 
 .vz3-hero__cta-row {
@@ -229,41 +238,43 @@
   gap: 16px;
   justify-content: center;
   flex-wrap: wrap;
-  margin-bottom: 56px;
+  margin-bottom: 64px;
 }
 
 .vz3-hero__trust {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 32px;
+  gap: 28px;
   padding-top: 40px;
-  border-top: 1px solid var(--vz3-line);
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
   flex-wrap: wrap;
 }
 
 .vz3-hero__trust-item {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 12px;
   font-size: 15px;
-  color: var(--vz3-ink-2);
+  color: rgba(255, 255, 255, 0.9);
   font-weight: 500;
+  text-align: left;
 }
 .vz3-hero__trust-item strong {
-  color: var(--vz3-bg-dark);
+  color: white;
   font-weight: 700;
 }
 .vz3-hero__trust-item::before {
   content: '✓';
   color: var(--vz3-orange);
   font-weight: 800;
+  font-size: 16px;
 }
 
 @media (max-width: 767px) {
-  .vz3-hero { padding: 60px 0 80px; }
+  .vz3-hero { padding: 80px 0 100px; }
   .vz3-hero__cta-row { flex-direction: column; align-items: stretch; }
-  .vz3-hero__cta-row .vz3-btn { width: 100%; }
+  .vz3-hero__cta-row .vz3-btn { width: 100%; white-space: normal; }
   .vz3-hero__trust { gap: 16px; flex-direction: column; align-items: flex-start; }
 }
 
@@ -332,7 +343,7 @@
 
 .vz3-cost {
   padding: 96px 0;
-  background: var(--vz3-bg-dark); /* Темний фон як на скріншоті */
+  background: var(--vz3-bg-dark);
   color: white;
 }
 
@@ -597,7 +608,7 @@
 
 .vz3-stats {
   padding: 80px 0;
-  background: var(--vz3-bg-dark); /* Темний фон */
+  background: var(--vz3-bg-dark); 
   color: white;
 }
 
@@ -613,7 +624,7 @@
   font-weight: 800;
   line-height: 1;
   margin: 0 0 12px;
-  color: var(--vz3-orange); /* Акцентні цифри */
+  color: var(--vz3-orange); 
 }
 .vz3-stat__num em {
   font-style: normal;
@@ -736,7 +747,7 @@
 .vz3-relapse__content p strong { color: var(--vz3-ink); font-weight: 700; }
 
 .vz3-relapse__visual {
-  background: var(--vz3-bg-dark); /* Темний фон під графіку/статистику */
+  background: var(--vz3-bg-dark); 
   color: white;
   border-radius: var(--vz3-radius-md);
   padding: 40px 32px;
@@ -1146,7 +1157,7 @@
 
 .vz3-final-cta {
   padding: 100px 0;
-  background: var(--vz3-bg-dark); /* Темно-оливковий */
+  background: var(--vz3-bg-dark); 
   color: white;
   text-align: center;
   position: relative;
@@ -1197,7 +1208,6 @@
   margin-bottom: 48px;
 }
 
-/* Форма для конверсії (Новий елемент для покращення лідогенерації) */
 .vz3-lead-form {
   background: white;
   padding: 40px;
@@ -1309,38 +1319,37 @@
 <!-- ================ MARKUP ================ -->
 <div class="vz3-root">
 
-  <!-- ===== 1. HERO ===== -->
+  <!-- ===== 1. HERO (ОНОВЛЕНО ЗА ЗАПИТОМ) ===== -->
   <section class="vz3-hero">
     <div class="vz3-hero__decor"></div>
-    <div class="vz3-hero__decor-2"></div>
 
     <div class="vz3-container">
       <div class="vz3-hero__inner">
-        <span class="vz3-tag">Лідер послуг по позбавленню залежностей в Україні</span>
+        <span class="vz3-tag vz3-tag--hero">Конфіденційно • 15+ років досвіду • Науково-доказовий підхід</span>
 
         <h1 class="vz3-hero__title">
-          Залежність забирає не тільки <em>життя людини</em>. Вона руйнує всіх, хто поруч.
+          Залежність забирає не тільки твоє життя.<br>
+          Вона руйнує <em>все, що тобі дороге.</em>
         </h1>
 
         <p class="vz3-hero__sub">
-          Vzaiemodiia — це команда спеціалістів, які працюють із залежностями науково-доказово.
-          Алкоголь, азартні ігри, наркотики, кодова поведінка. Прогнозований процес. Перевірені методики. Навіть якщо вже були спроби і зриви.
+          Алкоголь. Азарт. Переїдання. Порнографія. Тривожні думки.<br><br>
+          Ти ще тримаєшся зовні, але всередині — виснаження, сором і відчуття, що ти вже не контролюєш своє життя. <strong>Ми допомагаємо повернути контроль.</strong> Науково. Конфіденційно. Без осуду.
         </p>
 
         <div class="vz3-hero__cta-row">
           <a href="#vz3-final-cta" class="vz3-btn vz3-btn--primary vz3-btn--lg" onclick="vz3Scroll(event, 'vz3-final-cta')">
-            Записатись на консультацію
+            Записатися на конфіденційну консультацію
           </a>
-          <a href="#vz3-philosophy" class="vz3-btn vz3-btn--secondary vz3-btn--lg" onclick="vz3Scroll(event, 'vz3-philosophy')">
-            Дізнатись про підхід
+          <a href="#vz3-philosophy" class="vz3-btn vz3-btn--hero-secondary vz3-btn--lg" onclick="vz3Scroll(event, 'vz3-philosophy')">
+            Дізнатися про наш підхід
           </a>
         </div>
 
         <div class="vz3-hero__trust">
-          <div class="vz3-hero__trust-item"><strong>15+ років</strong> практики</div>
-          <div class="vz3-hero__trust-item"><strong>12 спеціалістів</strong> у команді</div>
-          <div class="vz3-hero__trust-item"><strong>100%</strong> конфіденційно</div>
-          <div class="vz3-hero__trust-item"><strong>Науково-доказовий</strong> підхід</div>
+          <div class="vz3-hero__trust-item">Працюємо з алкоголем, азартними іграми, емоційною залежністю та іншими</div>
+          <div class="vz3-hero__trust-item">12 спеціалістів у команді</div>
+          <div class="vz3-hero__trust-item">100% конфіденційність</div>
         </div>
       </div>
     </div>
@@ -1365,7 +1374,6 @@
           <h3 class="vz3-type__name">Ігрова<br>(лудоманія)</h3>
         </div>
         
-        <!-- Замінено наркотичну на харчову згідно завдання -->
         <div class="vz3-type">
           <div class="vz3-type__icon">🍽️</div>
           <h3 class="vz3-type__name">Харчова<br>(розлади харчової поведінки)</h3>
@@ -1662,8 +1670,6 @@
         </p>
       </div>
 
-      <!-- !!! РОЗРОБНИКУ: замінити avatars на справжні фото
-           через background-image у CSS .vz3-expert__photo -->
       <div class="vz3-team__grid">
         <div class="vz3-expert">
           <div class="vz3-expert__photo">ТП</div>
@@ -1741,7 +1747,7 @@
 
         <div class="vz3-testimonial">
           <p class="vz3-testimonial__text">
-            15 років на стимулянтах. Все це називали «робочою активністю». Жодна клініка не хотіла братись — «у вас немає діагнозу». Vzaiemodiia побачили проблему до того, як вона стала клінічною. За 4 місяці я знову сплю по 7 годин і не потребую кофеїну на щодень.
+            15 років на стимулянтах. Все це називали «робочою активністю». Жодна клініка не хотіла братись — «у вас немає діагнозу». Vzaiemodiia побачили проблему до того, як টালি клінічною. За 4 місяці я знову сплю по 7 годин і не потребую кофеїну на щодень.
           </p>
           <div class="vz3-testimonial__author">
             <div class="vz3-testimonial__avatar">Д.Р.</div>
@@ -1867,7 +1873,6 @@
         </p>
         
         <div class="vz3-final-cta__row">
-          <!-- Стандартні кнопки залишаються -->
           <a href="https://calendly.com/your-link" class="vz3-btn vz3-btn--primary vz3-btn--lg">
             Обрати час у календарі
           </a>
@@ -1876,7 +1881,6 @@
           </a>
         </div>
 
-        <!-- РОЗШИРЕННЯ КОНВЕРСІЇ: Вбудована форма швидкого зв'язку -->
         <div class="vz3-lead-form">
           <h3>Або залиште телефон</h3>
           <p>Ми перетелефонуємо вам протягом 15 хвилин у робочий час для узгодження деталей.</p>
