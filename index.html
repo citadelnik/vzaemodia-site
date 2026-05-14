@@ -1,387 +1,1937 @@
 <!DOCTYPE html>
-<html lang="uk">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Customer Journey Map: Архетипи та Звільнення від Залежності</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <style>
-        body {
-            background-color: #F8FAFC;
-            color: #1E293B;
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-        }
-        .bg-primary { background-color: #1E3A8A; }
-        .bg-secondary { background-color: #3B82F6; }
-        .bg-accent { background-color: #EC4899; }
-        .text-primary { color: #1E3A8A; }
-        .text-secondary { color: #3B82F6; }
-        .text-accent { color: #EC4899; }
-        
-        .chart-container {
-            position: relative;
-            width: 100%;
-            max-width: 900px;
-            margin-left: auto;
-            margin-right: auto;
-            height: 400px;
-            max-height: 450px;
-        }
-        @media (min-width: 768px) {
-            .chart-container {
-                height: 450px;
-            }
-        }
-        
-        .material-card {
-            background: #FFFFFF;
-            border-radius: 12px;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-            transition: transform 0.2s;
-        }
-        .material-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-        }
-        
-        .stage-number {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            background-color: #EC4899;
-            color: white;
-            font-weight: bold;
-            margin-right: 12px;
-        }
-    </style>
-</head>
-<body class="antialiased">
+<!--
+================================================================================
+  vzaemodia.com · HOMEPAGE v3.0 (STYLED AS "ABOUT US")
+  Позиціонування: лідер послуг по позбавленню залежностей в українському сегменті
+  Філософія: Залежність → Незалежність → Взаємодія
+================================================================================
+-->
 
-    <header class="bg-primary text-white py-16 px-6 shadow-lg mb-12">
-        <div class="max-w-6xl mx-auto">
-            <h1 class="text-4xl md:text-5xl font-bold mb-4 tracking-tight">Customer Journey Map</h1>
-            <h2 class="text-2xl md:text-3xl font-light text-blue-200">Воронка «Архетипи та Звільнення від Залежності»</h2>
-            <p class="mt-6 text-lg max-w-3xl leading-relaxed">
-                Стратегічна візуалізація шляху клієнтки: від першого контакту з контентом про жіночі архетипи до глибокої терапії та лояльності. Цей інфографічний звіт розкриває, як інтерес до самопізнання трансформується у свідоме рішення працювати із залежністю.
-            </p>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<!-- Замінено шрифт на Montserrat для відповідності стилю на скріншоті -->
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+.vz3-root {
+  /* НОВА ПАЛІТРА ЗІ СКРІНШОТУ "ПРО НАС" */
+  --vz3-bg:          #FDFBF6; /* Світло-кремовий фон */
+  --vz3-bg-2:        #F4EFE6; /* Трохи темніший кремовий для контрасту */
+  --vz3-bg-3:        #EAE2D3;
+  --vz3-bg-dark:     #5C553A; /* Глибокий оливково-коричневий */
+  --vz3-bg-card:     #FFFFFF;
+
+  --vz3-ink:         #2A2821; /* Майже чорний для тексту */
+  --vz3-ink-2:       #514E43;
+  --vz3-ink-3:       #7A7565;
+  --vz3-ink-light:   #FDFBF6; /* Світлий текст на темному фоні */
+
+  --vz3-orange:      #F08C23; /* Яскравий оранжевий акцент */
+  --vz3-orange-2:    #DE7A10;
+  --vz3-orange-soft: #FDE8D3;
+  --vz3-orange-tint: rgba(240, 140, 35, 0.12);
+
+  --vz3-green:       #5C553A; /* Адаптовано під основний темний */
+  --vz3-green-soft:  #E8E6DF;
+  --vz3-red:         #C44545;
+  --vz3-red-soft:    #F8DCDC;
+
+  --vz3-line:        #E3DBCB;
+  --vz3-line-soft:   #EBE5D8;
+
+  --vz3-shadow-sm:   0 2px 8px rgba(92, 85, 58, 0.08);
+  --vz3-shadow-md:   0 8px 24px rgba(92, 85, 58, 0.12);
+  --vz3-shadow-lg:   0 16px 48px rgba(92, 85, 58, 0.15);
+
+  /* Радіуси зменшено, щоб відповідати класичному стилю скріншоту */
+  --vz3-radius-sm:   4px;
+  --vz3-radius-md:   8px;
+  --vz3-radius-lg:   12px;
+  --vz3-radius-pill: 6px; 
+
+  --vz3-font: 'Montserrat', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+
+  font-family: var(--vz3-font);
+  color: var(--vz3-ink);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-size: 16px; /* Трохи зменшено базовий розмір для акуратності Montserrat */
+}
+
+.vz3-root *,
+.vz3-root *::before,
+.vz3-root *::after { box-sizing: border-box; }
+
+.vz3-root *::selection { background: var(--vz3-orange-soft); color: var(--vz3-ink); }
+
+.vz3-container {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 0 32px;
+}
+@media (max-width: 767px) { .vz3-container { padding: 0 20px; } }
+
+/* ============ COMMON ============ */
+
+.vz3-tag {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--vz3-orange-2);
+  background: var(--vz3-orange-tint);
+  padding: 6px 14px;
+  border-radius: var(--vz3-radius-sm);
+  margin-bottom: 24px;
+  border: 1px solid rgba(240, 140, 35, 0.2);
+}
+
+.vz3-h2 {
+  font-weight: 700;
+  font-size: clamp(26px, 3.5vw, 40px);
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  color: var(--vz3-ink);
+  margin: 0 0 20px;
+}
+.vz3-h2 em {
+  font-style: normal;
+  color: var(--vz3-orange);
+  position: relative;
+}
+/* Замість підкреслення робимо просто акцентним кольором, як на скріні */
+.vz3-h2 em::after { display: none; }
+
+.vz3-lede {
+  font-size: clamp(16px, 1.8vw, 18px);
+  color: var(--vz3-ink-2);
+  line-height: 1.6;
+  max-width: 720px;
+  margin: 0;
+}
+
+/* ============ BUTTONS ============ */
+
+.vz3-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-family: var(--vz3-font);
+  font-size: 15px;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  border: none;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.vz3-btn--primary {
+  background: var(--vz3-orange);
+  color: white;
+  padding: 16px 32px;
+  border-radius: var(--vz3-radius-sm);
+  box-shadow: var(--vz3-shadow-sm);
+}
+.vz3-btn--primary:hover,
+.vz3-btn--primary:focus {
+  background: var(--vz3-orange-2);
+  transform: translateY(-2px);
+  box-shadow: var(--vz3-shadow-md);
+  color: white;
+}
+
+.vz3-btn--secondary {
+  background: transparent;
+  color: var(--vz3-bg-dark);
+  padding: 16px 32px;
+  border-radius: var(--vz3-radius-sm);
+  border: 2px solid var(--vz3-bg-dark);
+}
+.vz3-btn--secondary:hover {
+  background: var(--vz3-bg-dark);
+  color: white;
+}
+
+.vz3-btn--lg { padding: 18px 40px; font-size: 15px; }
+
+/* ============ HERO ============ */
+
+.vz3-hero {
+  background: var(--vz3-bg-2);
+  padding: 100px 0 120px;
+  position: relative;
+  overflow: hidden;
+  border-bottom: 1px solid var(--vz3-line);
+}
+
+.vz3-hero__decor {
+  position: absolute;
+  top: -100px;
+  right: -50px;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, var(--vz3-orange-soft), transparent 60%);
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.5;
+}
+
+.vz3-hero__decor-2 {
+  position: absolute;
+  bottom: -150px;
+  left: -100px;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, var(--vz3-line-soft), transparent 70%);
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.6;
+}
+
+.vz3-hero__inner {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  max-width: 920px;
+  margin: 0 auto;
+}
+
+.vz3-hero__title {
+  font-weight: 800;
+  font-size: clamp(32px, 5.5vw, 60px);
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  margin: 0 0 24px;
+  color: var(--vz3-bg-dark); /* Темно-оливковий із скріншоту */
+}
+.vz3-hero__title em {
+  font-style: normal;
+  color: var(--vz3-orange);
+}
+
+.vz3-hero__sub {
+  font-size: clamp(17px, 2vw, 20px);
+  color: var(--vz3-ink-2);
+  line-height: 1.6;
+  margin: 0 auto 40px;
+  max-width: 760px;
+  font-weight: 500;
+}
+
+.vz3-hero__cta-row {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 56px;
+}
+
+.vz3-hero__trust {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 32px;
+  padding-top: 40px;
+  border-top: 1px solid var(--vz3-line);
+  flex-wrap: wrap;
+}
+
+.vz3-hero__trust-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 15px;
+  color: var(--vz3-ink-2);
+  font-weight: 500;
+}
+.vz3-hero__trust-item strong {
+  color: var(--vz3-bg-dark);
+  font-weight: 700;
+}
+.vz3-hero__trust-item::before {
+  content: '✓';
+  color: var(--vz3-orange);
+  font-weight: 800;
+}
+
+@media (max-width: 767px) {
+  .vz3-hero { padding: 60px 0 80px; }
+  .vz3-hero__cta-row { flex-direction: column; align-items: stretch; }
+  .vz3-hero__cta-row .vz3-btn { width: 100%; }
+  .vz3-hero__trust { gap: 16px; flex-direction: column; align-items: flex-start; }
+}
+
+/* ============ ADDICTION TYPES STRIP ============ */
+
+.vz3-types {
+  padding: 80px 0;
+  background: var(--vz3-bg);
+}
+
+.vz3-types__head {
+  text-align: center;
+  margin-bottom: 48px;
+}
+
+.vz3-types__grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 20px;
+}
+
+.vz3-type {
+  background: white;
+  border-radius: var(--vz3-radius-md);
+  padding: 24px 16px;
+  text-align: center;
+  border: 1px solid var(--vz3-line-soft);
+  transition: all 0.3s ease;
+  cursor: default;
+  box-shadow: var(--vz3-shadow-sm);
+}
+.vz3-type:hover {
+  border-color: var(--vz3-orange);
+  transform: translateY(-4px);
+  box-shadow: var(--vz3-shadow-md);
+}
+
+.vz3-type__icon {
+  width: 48px;
+  height: 48px;
+  background: var(--vz3-bg-2);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 16px;
+  font-size: 24px;
+}
+
+.vz3-type__name {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--vz3-ink);
+  margin: 0;
+  line-height: 1.4;
+}
+
+@media (max-width: 1023px) {
+  .vz3-types__grid { grid-template-columns: repeat(3, 1fr); }
+}
+@media (max-width: 559px) {
+  .vz3-types__grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+}
+
+/* ============ COST OF ADDICTION ============ */
+
+.vz3-cost {
+  padding: 96px 0;
+  background: var(--vz3-bg-dark); /* Темний фон як на скріншоті */
+  color: white;
+}
+
+.vz3-cost__head {
+  text-align: center;
+  margin-bottom: 56px;
+}
+.vz3-cost__head .vz3-h2 { color: white; }
+.vz3-cost__head .vz3-lede {
+  color: rgba(255,255,255,0.8);
+  margin-left: auto;
+  margin-right: auto;
+}
+.vz3-cost__head .vz3-tag {
+  background: rgba(255,255,255,0.1);
+  color: var(--vz3-orange);
+  border-color: rgba(255,255,255,0.2);
+}
+
+.vz3-cost__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
+
+.vz3-cost-card {
+  background: rgba(255,255,255,0.05);
+  border-radius: var(--vz3-radius-md);
+  padding: 36px 28px;
+  border: 1px solid rgba(255,255,255,0.1);
+  transition: all 0.3s ease;
+}
+.vz3-cost-card:hover {
+  background: rgba(255,255,255,0.1);
+  transform: translateY(-4px);
+  border-color: var(--vz3-orange);
+}
+
+.vz3-cost-card__icon {
+  width: 56px;
+  height: 56px;
+  background: rgba(240, 140, 35, 0.2);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+  font-size: 26px;
+}
+
+.vz3-cost-card h3 {
+  font-size: 18px;
+  font-weight: 700;
+  margin: 0 0 12px;
+  color: white;
+  line-height: 1.3;
+}
+
+.vz3-cost-card p {
+  font-size: 15px;
+  color: rgba(255,255,255,0.7);
+  line-height: 1.6;
+  margin: 0;
+}
+
+@media (max-width: 1023px) {
+  .vz3-cost__grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 559px) {
+  .vz3-cost { padding: 64px 0; }
+  .vz3-cost__grid { grid-template-columns: 1fr; }
+}
+
+/* ============ PHILOSOPHY (3 stages) ============ */
+
+.vz3-philosophy {
+  padding: 96px 0;
+  background: var(--vz3-bg);
+  position: relative;
+  overflow: hidden;
+}
+
+.vz3-philosophy__head {
+  text-align: center;
+  margin-bottom: 64px;
+}
+.vz3-philosophy__head .vz3-lede {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.vz3-philosophy__formula {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 56px;
+  font-size: clamp(20px, 3.5vw, 28px);
+  font-weight: 700;
+  color: var(--vz3-ink-3);
+}
+.vz3-philosophy__formula .step {
+  padding: 12px 24px;
+  border-radius: var(--vz3-radius-sm);
+  background: white;
+  border: 1px solid var(--vz3-line);
+}
+.vz3-philosophy__formula .step.active {
+  background: var(--vz3-orange);
+  color: white;
+  border-color: var(--vz3-orange);
+  box-shadow: var(--vz3-shadow-md);
+}
+.vz3-philosophy__formula .arrow {
+  color: var(--vz3-orange);
+  font-size: 24px;
+}
+
+.vz3-philosophy__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.vz3-stage {
+  background: white;
+  border-radius: var(--vz3-radius-md);
+  padding: 40px 32px;
+  border: 1px solid var(--vz3-line);
+  position: relative;
+}
+
+.vz3-stage--active {
+  background: var(--vz3-bg-dark);
+  color: white;
+  border: 1px solid var(--vz3-bg-dark);
+  box-shadow: var(--vz3-shadow-lg);
+}
+.vz3-stage--active h3, .vz3-stage--active p, .vz3-stage--active p strong {
+  color: white;
+}
+.vz3-stage--active p { opacity: 0.8; }
+.vz3-stage--active::before {
+  content: 'НАША МІСІЯ';
+  position: absolute;
+  top: -12px;
+  right: 24px;
+  background: var(--vz3-orange);
+  color: white;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  padding: 6px 14px;
+  border-radius: var(--vz3-radius-sm);
+}
+
+.vz3-stage__num {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--vz3-orange);
+  margin-bottom: 16px;
+}
+
+.vz3-stage h3 {
+  font-size: 24px;
+  font-weight: 800;
+  margin: 0 0 16px;
+  line-height: 1.3;
+  color: var(--vz3-ink);
+}
+
+.vz3-stage p {
+  font-size: 15px;
+  color: var(--vz3-ink-2);
+  line-height: 1.6;
+  margin: 0 0 12px;
+}
+.vz3-stage p:last-child { margin-bottom: 0; }
+.vz3-stage p strong { color: var(--vz3-ink); font-weight: 700; }
+
+@media (max-width: 899px) {
+  .vz3-philosophy__grid { grid-template-columns: 1fr; }
+  .vz3-philosophy__formula { font-size: 18px; }
+}
+
+/* ============ METHOD (science-based) ============ */
+
+.vz3-method {
+  padding: 96px 0;
+  background: var(--vz3-bg-2);
+  border-top: 1px solid var(--vz3-line);
+  border-bottom: 1px solid var(--vz3-line);
+}
+
+.vz3-method__head {
+  text-align: center;
+  margin-bottom: 56px;
+}
+.vz3-method__head .vz3-lede {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.vz3-method__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.vz3-method-card {
+  background: white;
+  border-radius: var(--vz3-radius-md);
+  padding: 36px 28px;
+  border: 1px solid var(--vz3-line-soft);
+  box-shadow: var(--vz3-shadow-sm);
+}
+
+.vz3-method-card__tag {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--vz3-orange-2);
+  background: var(--vz3-orange-tint);
+  padding: 6px 12px;
+  border-radius: var(--vz3-radius-sm);
+  margin-bottom: 20px;
+}
+
+.vz3-method-card h3 {
+  font-size: 20px;
+  font-weight: 700;
+  margin: 0 0 16px;
+  line-height: 1.3;
+  color: var(--vz3-ink);
+}
+
+.vz3-method-card p {
+  font-size: 15px;
+  color: var(--vz3-ink-2);
+  line-height: 1.6;
+  margin: 0 0 16px;
+}
+
+.vz3-method-card__evidence {
+  font-size: 13px;
+  color: var(--vz3-ink-3);
+  padding-top: 16px;
+  border-top: 1px solid var(--vz3-line);
+  line-height: 1.5;
+}
+
+@media (max-width: 899px) {
+  .vz3-method { padding: 64px 0; }
+  .vz3-method__grid { grid-template-columns: 1fr; }
+}
+
+/* ============ STATS ============ */
+
+.vz3-stats {
+  padding: 80px 0;
+  background: var(--vz3-bg-dark); /* Темний фон */
+  color: white;
+}
+
+.vz3-stats__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 32px;
+  text-align: center;
+}
+
+.vz3-stat__num {
+  font-size: clamp(40px, 5vw, 56px);
+  font-weight: 800;
+  line-height: 1;
+  margin: 0 0 12px;
+  color: var(--vz3-orange); /* Акцентні цифри */
+}
+.vz3-stat__num em {
+  font-style: normal;
+  color: white;
+  font-size: 0.6em;
+}
+
+.vz3-stat__label {
+  font-size: 14px;
+  color: rgba(255,255,255,0.8);
+  font-weight: 600;
+  line-height: 1.4;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+@media (max-width: 767px) {
+  .vz3-stats__grid { grid-template-columns: repeat(2, 1fr); gap: 40px; }
+}
+
+/* ============ DIFFERENCE (why us) ============ */
+
+.vz3-difference {
+  padding: 96px 0;
+  background: var(--vz3-bg);
+}
+
+.vz3-difference__head {
+  text-align: center;
+  margin-bottom: 56px;
+}
+.vz3-difference__head .vz3-lede {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.vz3-difference__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.vz3-diff-pillar {
+  background: white;
+  border-radius: var(--vz3-radius-md);
+  padding: 40px 32px;
+  border: 1px solid var(--vz3-line);
+  text-align: left;
+}
+
+.vz3-diff-pillar__num {
+  width: 40px;
+  height: 40px;
+  background: var(--vz3-orange-tint);
+  color: var(--vz3-orange);
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  font-weight: 800;
+  margin: 0 0 20px;
+}
+
+.vz3-diff-pillar h3 {
+  font-size: 20px;
+  font-weight: 700;
+  margin: 0 0 16px;
+  line-height: 1.3;
+  color: var(--vz3-ink);
+}
+
+.vz3-diff-pillar p {
+  font-size: 15px;
+  color: var(--vz3-ink-2);
+  line-height: 1.6;
+  margin: 0;
+}
+
+@media (max-width: 899px) {
+  .vz3-difference { padding: 64px 0; }
+  .vz3-difference__grid { grid-template-columns: 1fr; }
+}
+
+/* ============ RELAPSE ============ */
+
+.vz3-relapse {
+  padding: 96px 0;
+  background: var(--vz3-bg-2);
+  border-top: 1px solid var(--vz3-line);
+}
+
+.vz3-relapse__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.vz3-relapse__content h2 {
+  font-weight: 700;
+  font-size: clamp(28px, 4vw, 40px);
+  line-height: 1.25;
+  margin: 0 0 24px;
+  color: var(--vz3-ink);
+}
+.vz3-relapse__content h2 em {
+  font-style: normal;
+  color: var(--vz3-orange);
+}
+
+.vz3-relapse__content p {
+  font-size: 16px;
+  color: var(--vz3-ink-2);
+  line-height: 1.6;
+  margin: 0 0 16px;
+}
+.vz3-relapse__content p strong { color: var(--vz3-ink); font-weight: 700; }
+
+.vz3-relapse__visual {
+  background: var(--vz3-bg-dark); /* Темний фон під графіку/статистику */
+  color: white;
+  border-radius: var(--vz3-radius-md);
+  padding: 40px 32px;
+  box-shadow: var(--vz3-shadow-lg);
+}
+
+.vz3-relapse__stat {
+  text-align: center;
+  padding-bottom: 24px;
+  margin-bottom: 24px;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+.vz3-relapse__stat-num {
+  font-size: 56px;
+  font-weight: 800;
+  color: var(--vz3-orange);
+  line-height: 1;
+  margin-bottom: 12px;
+}
+.vz3-relapse__stat-label {
+  font-size: 14px;
+  color: rgba(255,255,255,0.8);
+  line-height: 1.5;
+  font-weight: 500;
+}
+
+.vz3-relapse__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.vz3-relapse__list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 12px 0;
+  font-size: 15px;
+  color: rgba(255,255,255,0.9);
+  line-height: 1.5;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+.vz3-relapse__list li:last-child { border-bottom: none; }
+.vz3-relapse__list li::before {
+  content: '✓';
+  color: var(--vz3-orange);
+  font-weight: 800;
+  font-size: 16px;
+  flex-shrink: 0;
+}
+
+@media (max-width: 899px) {
+  .vz3-relapse { padding: 64px 0; }
+  .vz3-relapse__grid { grid-template-columns: 1fr; gap: 40px; }
+}
+
+/* ============ TEAM PREVIEW ============ */
+
+.vz3-team {
+  padding: 96px 0;
+  background: var(--vz3-bg);
+}
+
+.vz3-team__head {
+  text-align: center;
+  margin-bottom: 56px;
+}
+.vz3-team__head .vz3-lede {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.vz3-team__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
+
+.vz3-expert {
+  background: white;
+  border-radius: var(--vz3-radius-md);
+  padding: 32px 24px;
+  border: 1px solid var(--vz3-line);
+  text-align: center;
+  transition: all 0.3s ease;
+}
+.vz3-expert:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--vz3-shadow-md);
+  border-color: var(--vz3-orange);
+}
+
+.vz3-expert__photo {
+  width: 100px;
+  height: 100px;
+  margin: 0 auto 20px;
+  border-radius: 50%;
+  background: var(--vz3-bg-2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--vz3-bg-dark);
+  border: 4px solid white;
+  box-shadow: 0 0 0 1px var(--vz3-line);
+}
+
+.vz3-expert__name {
+  font-size: 18px;
+  font-weight: 700;
+  margin: 0 0 8px;
+  color: var(--vz3-ink);
+}
+
+.vz3-expert__role {
+  font-size: 13px;
+  color: var(--vz3-orange);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 0 0 16px;
+}
+
+.vz3-expert__spec {
+  font-size: 14px;
+  color: var(--vz3-ink-3);
+  line-height: 1.5;
+  margin: 0;
+  padding-top: 16px;
+  border-top: 1px solid var(--vz3-line);
+}
+
+.vz3-team__cta {
+  text-align: center;
+  margin-top: 48px;
+}
+
+@media (max-width: 1023px) {
+  .vz3-team__grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 559px) {
+  .vz3-team { padding: 64px 0; }
+  .vz3-team__grid { grid-template-columns: 1fr; max-width: 320px; margin: 0 auto; }
+}
+
+/* ============ JOURNEY (4-step process) ============ */
+
+.vz3-journey {
+  padding: 96px 0;
+  background: var(--vz3-bg-2);
+  border-top: 1px solid var(--vz3-line);
+}
+
+.vz3-journey__head {
+  text-align: center;
+  margin-bottom: 64px;
+}
+.vz3-journey__head .vz3-lede {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.vz3-journey__steps {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  position: relative;
+}
+
+.vz3-journey__steps::before {
+  content: '';
+  position: absolute;
+  top: 32px;
+  left: 12%;
+  right: 12%;
+  height: 2px;
+  background: var(--vz3-line);
+  z-index: 1;
+}
+
+.vz3-step {
+  background: white;
+  border-radius: var(--vz3-radius-md);
+  padding: 32px 24px;
+  border: 1px solid var(--vz3-line);
+  position: relative;
+  z-index: 2;
+  transition: all 0.3s ease;
+  text-align: center;
+}
+.vz3-step:hover {
+  border-color: var(--vz3-orange);
+  box-shadow: var(--vz3-shadow-sm);
+}
+
+.vz3-step__num {
+  width: 64px;
+  height: 64px;
+  background: white;
+  color: var(--vz3-orange);
+  border: 2px solid var(--vz3-line);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  font-weight: 800;
+  margin: 0 auto 24px;
+  transition: all 0.3s ease;
+}
+.vz3-step:hover .vz3-step__num {
+  border-color: var(--vz3-orange);
+  background: var(--vz3-orange-tint);
+}
+
+.vz3-step h3 {
+  font-size: 18px;
+  font-weight: 700;
+  margin: 0 0 12px;
+  color: var(--vz3-ink);
+}
+
+.vz3-step p {
+  font-size: 14px;
+  color: var(--vz3-ink-2);
+  line-height: 1.6;
+  margin: 0;
+}
+
+@media (max-width: 1023px) {
+  .vz3-journey__steps { grid-template-columns: repeat(2, 1fr); }
+  .vz3-journey__steps::before { display: none; }
+}
+@media (max-width: 559px) {
+  .vz3-journey { padding: 64px 0; }
+  .vz3-journey__steps { grid-template-columns: 1fr; }
+}
+
+/* ============ TESTIMONIALS ============ */
+
+.vz3-testimonials {
+  padding: 96px 0;
+  background: var(--vz3-bg);
+}
+
+.vz3-testimonials__head {
+  text-align: center;
+  margin-bottom: 56px;
+}
+.vz3-testimonials__head .vz3-lede {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.vz3-testimonials__grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+  max-width: 1080px;
+  margin: 0 auto;
+}
+
+.vz3-testimonial {
+  background: white;
+  border-radius: var(--vz3-radius-md);
+  padding: 40px;
+  border: 1px solid var(--vz3-line);
+  position: relative;
+}
+.vz3-testimonial::before {
+  content: '”';
+  position: absolute;
+  top: 16px;
+  right: 24px;
+  font-size: 80px;
+  line-height: 1;
+  color: var(--vz3-line);
+  font-family: Georgia, serif;
+  font-weight: 700;
+}
+
+.vz3-testimonial__text {
+  font-size: 15px;
+  color: var(--vz3-ink-2);
+  line-height: 1.7;
+  margin: 0 0 24px;
+  font-style: italic;
+  position: relative;
+  z-index: 2;
+}
+
+.vz3-testimonial__author {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding-top: 24px;
+  border-top: 1px solid var(--vz3-line);
+}
+.vz3-testimonial__avatar {
+  width: 48px;
+  height: 48px;
+  background: var(--vz3-bg-dark);
+  color: white;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 15px;
+  flex-shrink: 0;
+}
+.vz3-testimonial__name {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--vz3-ink);
+  margin: 0 0 4px;
+}
+.vz3-testimonial__role {
+  font-size: 13px;
+  color: var(--vz3-ink-3);
+  margin: 0;
+}
+
+@media (max-width: 767px) {
+  .vz3-testimonials { padding: 64px 0; }
+  .vz3-testimonials__grid { grid-template-columns: 1fr; }
+}
+
+/* ============ FAQ ============ */
+
+.vz3-faq {
+  padding: 96px 0;
+  background: var(--vz3-bg-2);
+  border-top: 1px solid var(--vz3-line);
+}
+
+.vz3-faq__head {
+  text-align: center;
+  margin-bottom: 48px;
+}
+.vz3-faq__head .vz3-lede {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.vz3-faq__list {
+  max-width: 820px;
+  margin: 0 auto;
+}
+
+.vz3-faq__item {
+  background: white;
+  border-radius: var(--vz3-radius-sm);
+  border: 1px solid var(--vz3-line);
+  margin-bottom: 12px;
+  overflow: hidden;
+  transition: all 0.2s ease;
+}
+.vz3-faq__item:hover { border-color: var(--vz3-orange); }
+
+.vz3-faq__item details { width: 100%; }
+
+.vz3-faq__item summary {
+  cursor: pointer;
+  padding: 24px 28px;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--vz3-ink);
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  user-select: none;
+}
+.vz3-faq__item summary::-webkit-details-marker { display: none; }
+.vz3-faq__item summary::after {
+  content: '+';
+  font-size: 24px;
+  font-weight: 400;
+  color: var(--vz3-orange);
+  flex-shrink: 0;
+  transition: transform 0.2s;
+  line-height: 1;
+}
+.vz3-faq__item details[open] summary::after { content: '−'; }
+.vz3-faq__item details[open] summary {
+  border-bottom: 1px solid var(--vz3-line);
+}
+
+.vz3-faq__answer {
+  padding: 24px 28px;
+  font-size: 15px;
+  color: var(--vz3-ink-2);
+  line-height: 1.7;
+}
+.vz3-faq__answer p { margin: 0 0 12px; }
+.vz3-faq__answer p:last-child { margin: 0; }
+
+@media (max-width: 767px) {
+  .vz3-faq { padding: 64px 0; }
+  .vz3-faq__item summary { padding: 18px 20px; font-size: 15px; }
+  .vz3-faq__answer { padding: 16px 20px; font-size: 14px; }
+}
+
+/* ============ FINAL CTA + ВБУДОВАНА ФОРМА ЗАХОПЛЕННЯ ============ */
+
+.vz3-final-cta {
+  padding: 100px 0;
+  background: var(--vz3-bg-dark); /* Темно-оливковий */
+  color: white;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.vz3-final-cta::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 50%;
+  width: 800px; height: 800px;
+  background: radial-gradient(circle, rgba(240, 140, 35, 0.1), transparent 70%);
+  transform: translate(-50%, -30%);
+  pointer-events: none;
+}
+
+.vz3-final-cta__inner {
+  position: relative;
+  z-index: 2;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.vz3-final-cta h2 {
+  font-size: clamp(30px, 4.5vw, 44px);
+  font-weight: 800;
+  line-height: 1.2;
+  margin: 0 0 20px;
+  color: white;
+}
+.vz3-final-cta h2 em {
+  font-style: normal;
+  color: var(--vz3-orange);
+}
+
+.vz3-final-cta p {
+  font-size: 17px;
+  color: rgba(255,255,255,0.8);
+  line-height: 1.6;
+  margin: 0 0 40px;
+}
+
+.vz3-final-cta__row {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 48px;
+}
+
+/* Форма для конверсії (Новий елемент для покращення лідогенерації) */
+.vz3-lead-form {
+  background: white;
+  padding: 40px;
+  border-radius: var(--vz3-radius-md);
+  max-width: 480px;
+  margin: 0 auto;
+  text-align: left;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+}
+
+.vz3-lead-form h3 {
+  color: var(--vz3-ink);
+  margin: 0 0 8px;
+  font-size: 22px;
+  font-weight: 700;
+  text-align: center;
+}
+
+.vz3-lead-form p {
+  color: var(--vz3-ink-3);
+  font-size: 14px;
+  margin: 0 0 24px;
+  text-align: center;
+}
+
+.vz3-form-group {
+  margin-bottom: 16px;
+}
+
+.vz3-form-input {
+  width: 100%;
+  padding: 16px 20px;
+  border: 1px solid var(--vz3-line);
+  border-radius: var(--vz3-radius-sm);
+  font-family: var(--vz3-font);
+  font-size: 15px;
+  color: var(--vz3-ink);
+  transition: all 0.3s ease;
+  background: var(--vz3-bg);
+}
+.vz3-form-input:focus {
+  outline: none;
+  border-color: var(--vz3-orange);
+  background: white;
+}
+
+.vz3-form-submit {
+  width: 100%;
+  padding: 18px;
+  background: var(--vz3-orange);
+  color: white;
+  border: none;
+  border-radius: var(--vz3-radius-sm);
+  font-family: var(--vz3-font);
+  font-size: 16px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 8px;
+}
+.vz3-form-submit:hover {
+  background: var(--vz3-orange-2);
+}
+
+.vz3-form-disclaimer {
+  font-size: 12px !important;
+  color: var(--vz3-ink-3) !important;
+  text-align: center;
+  margin: 16px 0 0 !important;
+}
+
+@media (max-width: 767px) {
+  .vz3-final-cta { padding: 64px 0; }
+  .vz3-final-cta__row { flex-direction: column; align-items: stretch; }
+  .vz3-final-cta__row .vz3-btn { width: 100%; }
+  .vz3-lead-form { padding: 32px 24px; }
+}
+
+/* ============ ANIMATIONS ============ */
+@keyframes vz3-fade-up {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.vz3-hero__title,
+.vz3-hero__sub,
+.vz3-hero__cta-row,
+.vz3-hero__trust {
+  animation: vz3-fade-up 0.8s ease-out both;
+}
+.vz3-hero__sub { animation-delay: 0.1s; }
+.vz3-hero__cta-row { animation-delay: 0.2s; }
+.vz3-hero__trust { animation-delay: 0.3s; }
+
+@media (prefers-reduced-motion: reduce) {
+  .vz3-root *,
+  .vz3-root *::before,
+  .vz3-root *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+</style>
+
+
+<!-- ================ MARKUP ================ -->
+<div class="vz3-root">
+
+  <!-- ===== 1. HERO ===== -->
+  <section class="vz3-hero">
+    <div class="vz3-hero__decor"></div>
+    <div class="vz3-hero__decor-2"></div>
+
+    <div class="vz3-container">
+      <div class="vz3-hero__inner">
+        <span class="vz3-tag">Лідер послуг по позбавленню залежностей в Україні</span>
+
+        <h1 class="vz3-hero__title">
+          Залежність забирає не тільки <em>життя людини</em>. Вона руйнує всіх, хто поруч.
+        </h1>
+
+        <p class="vz3-hero__sub">
+          Vzaiemodiia — це команда спеціалістів, які працюють із залежностями науково-доказово.
+          Алкоголь, азартні ігри, наркотики, кодова поведінка. Прогнозований процес. Перевірені методики. Навіть якщо вже були спроби і зриви.
+        </p>
+
+        <div class="vz3-hero__cta-row">
+          <a href="#vz3-final-cta" class="vz3-btn vz3-btn--primary vz3-btn--lg" onclick="vz3Scroll(event, 'vz3-final-cta')">
+            Записатись на консультацію
+          </a>
+          <a href="#vz3-philosophy" class="vz3-btn vz3-btn--secondary vz3-btn--lg" onclick="vz3Scroll(event, 'vz3-philosophy')">
+            Дізнатись про підхід
+          </a>
         </div>
-    </header>
 
-    <main class="max-w-6xl mx-auto px-6 pb-20">
+        <div class="vz3-hero__trust">
+          <div class="vz3-hero__trust-item"><strong>15+ років</strong> практики</div>
+          <div class="vz3-hero__trust-item"><strong>12 спеціалістів</strong> у команді</div>
+          <div class="vz3-hero__trust-item"><strong>100%</strong> конфіденційно</div>
+          <div class="vz3-hero__trust-item"><strong>Науково-доказовий</strong> підхід</div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-        <section class="mb-16">
-            <div class="mb-8">
-                <h3 class="text-3xl font-bold text-primary mb-4">Аналітика Воронки: Прогнозована Конверсія</h3>
-                <p class="text-lg">
-                    Успішна воронка вимагає розуміння об'ємів трафіку на кожному етапі. Нижче наведено прогнозовану візуалізацію переходу аудиторії (змодельовані дані) від широкого охоплення у соцмережах до цільового показника у 10 лояльних клієнток на терапії.
-                </p>
-            </div>
-            
-            <div class="material-card p-6 md:p-8">
-                <div class="chart-container">
-                    <canvas id="funnelChart"></canvas>
-                </div>
-                <div class="mt-6 p-4 bg-blue-50 rounded-lg border-l-4 border-blue-500">
-                    <p class="font-medium text-primary">Ключовий висновок:</p>
-                    <p class="mt-1">Найбільший відсів відбувається між етапами "Інтерес" (проходження тесту) та "Конверсія" (запис на діагностику). Персоналізовані повідомлення в Direct є критичним інструментом для подолання цього бар'єру.</p>
-                </div>
-            </div>
-        </section>
 
-        <section class="mb-16">
-            <div class="mb-8">
-                <h3 class="text-3xl font-bold text-primary mb-4">Деталізація Етапів CJM</h3>
-                <p class="text-lg">
-                    Шість послідовних кроків, які проходить жінка. Кожен етап має чітку точку контакту, очікувані емоційні реакції та вимірювані маркетингові цілі (KPI).
-                </p>
-            </div>
+  <!-- ===== 2. ADDICTION TYPES ===== -->
+  <section class="vz3-types">
+    <div class="vz3-container">
+      <div class="vz3-types__head">
+        <span class="vz3-tag">Працюємо з усіма типами залежностей</span>
+        <h2 class="vz3-h2">Будь-яка <em>залежність</em> — це система, яку можна перебудувати</h2>
+      </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                
-                <div class="material-card p-6 flex flex-col h-full border-t-4 border-secondary">
-                    <h4 class="text-xl font-bold mb-4 flex items-center text-primary"><span class="stage-number">1</span> Обізнаність</h4>
-                    <div class="flex-grow">
-                        <p class="mb-2"><strong>Точка контакту:</strong><br>📱 Instagram Reels, FB Ads, SEO "Архетипи"</p>
-                        <p class="mb-2"><strong>Дія:</strong><br>👀 Бачить відео про свій архетип, переходить у профіль.</p>
-                        <p class="mb-4 italic text-gray-600">"Це про мене! Невже хтось розуміє мій стан без засудження?"</p>
-                    </div>
-                    <div class="mt-4 pt-4 border-t border-gray-100">
-                        <p class="text-sm font-bold text-accent">KPI: Охоплення, переходи</p>
-                    </div>
-                </div>
-
-                <div class="material-card p-6 flex flex-col h-full border-t-4 border-secondary">
-                    <h4 class="text-xl font-bold mb-4 flex items-center text-primary"><span class="stage-number">2</span> Інтерес</h4>
-                    <div class="flex-grow">
-                        <p class="mb-2"><strong>Точка контакту:</strong><br>📝 Сторінка з тестом на сайті</p>
-                        <p class="mb-2"><strong>Дія:</strong><br>✔️ Проходить інтерактивний тест на богинь.</p>
-                        <p class="mb-4 italic text-gray-600">"Цікаво, хто я? Це виглядає як самопізнання, а не лікування."</p>
-                    </div>
-                    <div class="mt-4 pt-4 border-t border-gray-100">
-                        <p class="text-sm font-bold text-accent">KPI: Проходження тесту (Лід)</p>
-                    </div>
-                </div>
-
-                <div class="material-card p-6 flex flex-col h-full border-t-4 border-secondary">
-                    <h4 class="text-xl font-bold mb-4 flex items-center text-primary"><span class="stage-number">3</span> Усвідомлення</h4>
-                    <div class="flex-grow">
-                        <p class="mb-2"><strong>Точка контакту:</strong><br>📊 Результати тесту + Опис "Тіні"</p>
-                        <p class="mb-2"><strong>Дія:</strong><br>📖 Читає, як алкоголь компенсує дефіцити її архетипу.</p>
-                        <p class="mb-4 italic text-gray-600">"Боже, це саме те, що я відчуваю. Мені не вистачає енергії Гестії."</p>
-                    </div>
-                    <div class="mt-4 pt-4 border-t border-gray-100">
-                        <p class="text-sm font-bold text-accent">KPI: Розуміння зв'язку</p>
-                    </div>
-                </div>
-
-                <div class="material-card p-6 flex flex-col h-full border-t-4 border-accent">
-                    <h4 class="text-xl font-bold mb-4 flex items-center text-primary"><span class="stage-number">4</span> Конверсія</h4>
-                    <div class="flex-grow">
-                        <p class="mb-2"><strong>Точка контакту:</strong><br>💬 Кнопка "Записатись", Direct</p>
-                        <p class="mb-2"><strong>Дія:</strong><br>📅 Залишає заявку на діагностичну сесію.</p>
-                        <p class="mb-4 italic text-gray-600">"Я готова спробувати. Це не страшно, це розбір мого архетипу."</p>
-                    </div>
-                    <div class="mt-4 pt-4 border-t border-gray-100">
-                        <p class="text-sm font-bold text-accent">KPI: Запис на зустріч</p>
-                    </div>
-                </div>
-
-                <div class="material-card p-6 flex flex-col h-full border-t-4 border-primary">
-                    <h4 class="text-xl font-bold mb-4 flex items-center text-primary"><span class="stage-number">5</span> Терапія</h4>
-                    <div class="flex-grow">
-                        <p class="mb-2"><strong>Точка контакту:</strong><br>💻 Онлайн-сесії, супровід</p>
-                        <p class="mb-2"><strong>Дія:</strong><br>🧘‍♀️ Проходить курс, працює над балансом.</p>
-                        <p class="mb-4 italic text-gray-600">"Я вчуся бути собою без допінгу. Це глибока робота."</p>
-                    </div>
-                    <div class="mt-4 pt-4 border-t border-gray-100">
-                        <p class="text-sm font-bold text-accent">KPI: Повний цикл терапії</p>
-                    </div>
-                </div>
-
-                <div class="material-card p-6 flex flex-col h-full border-t-4 border-primary">
-                    <h4 class="text-xl font-bold mb-4 flex items-center text-primary"><span class="stage-number">6</span> Лояльність</h4>
-                    <div class="flex-grow">
-                        <p class="mb-2"><strong>Точка контакту:</strong><br>⭐ Google Reviews, Рекомендації</p>
-                        <p class="mb-2"><strong>Дія:</strong><br>🗣️ Залишає відгук, рекомендує подругам.</p>
-                        <p class="mb-4 italic text-gray-600">"Моє життя змінилося. Я хочу, щоб інші теж знайшли цей шлях."</p>
-                    </div>
-                    <div class="mt-4 pt-4 border-t border-gray-100">
-                        <p class="text-sm font-bold text-accent">KPI: Відгуки, реферали</p>
-                    </div>
-                </div>
-
-            </div>
-        </section>
-
-        <section class="mb-16">
-            <div class="mb-8">
-                <h3 class="text-3xl font-bold text-primary mb-4">Стратегічні Рекомендації</h3>
-                <p class="text-lg">Ключові принципи комунікації для збереження довіри та конфіденційності клієнток.</p>
-            </div>
-            
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                <div class="bg-white p-6 rounded-lg shadow border border-gray-100">
-                    <div class="text-4xl mb-4">🎯</div>
-                    <h4 class="font-bold text-lg mb-2">Недирективний підхід</h4>
-                    <p class="text-gray-700">Замість "кинь пити", комунікуйте "знайди свою внутрішню силу". Посилання на тест має бути повсюди (Linktree, Reels).</p>
-                </div>
-                <div class="bg-white p-6 rounded-lg shadow border border-gray-100">
-                    <div class="text-4xl mb-4">✉️</div>
-                    <h4 class="font-bold text-lg mb-2">Персоналізація в Direct</h4>
-                    <p class="text-gray-700">Використовуйте результати тесту для початку діалогу. Наприклад: "Ваш результат — Персефона. Хочете дізнатися, як вийти з цієї пастки?"</p>
-                </div>
-                <div class="bg-white p-6 rounded-lg shadow border border-gray-100">
-                    <div class="text-4xl mb-4">🔒</div>
-                    <h4 class="font-bold text-lg mb-2">Безпечні Відгуки</h4>
-                    <p class="text-gray-700">Використовуйте анонімні скріншоти. Просіть відгуки про "курс самопізнання" без згадки алкоголізму. Пропонуйте бонуси (медитації) за фідбек.</p>
-                </div>
-            </div>
-        </section>
-
-        <section class="mb-16">
-            <div class="mb-8">
-                <h3 class="text-3xl font-bold text-primary mb-4">4-Тижневий План Дій (Ціль: 10 Клієнток)</h3>
-                <p class="text-lg">
-                    Візуалізація стратегії швидкого запуску для досягнення цільової кількості записів на терапію.
-                </p>
-            </div>
-
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
-                <div class="material-card p-6 h-full">
-                    <div class="chart-container">
-                        <canvas id="planChart"></canvas>
-                    </div>
-                </div>
-
-                <div class="flex flex-col gap-4">
-                    <div class="bg-white p-5 rounded-lg shadow-sm border-l-4 border-blue-300 relative">
-                        <div class="absolute -left-3 top-5 w-5 h-5 rounded-full bg-blue-300 border-4 border-white"></div>
-                        <h4 class="font-bold text-primary">Тиждень 1: Запуск & Охоплення</h4>
-                        <p class="text-sm mt-1">Запуск 5-7 Reels про кожен архетип + активне посилання на тест у сторіз.</p>
-                    </div>
-                    
-                    <div class="bg-white p-5 rounded-lg shadow-sm border-l-4 border-blue-500 relative">
-                        <div class="absolute -left-3 top-5 w-5 h-5 rounded-full bg-blue-500 border-4 border-white"></div>
-                        <h4 class="font-bold text-primary">Тиждень 2: Активна Комунікація</h4>
-                        <p class="text-sm mt-1">Персональні розсилки всім, хто пройшов тест. Пропозиція "Тижня архетипової діагностики".</p>
-                    </div>
-
-                    <div class="bg-white p-5 rounded-lg shadow-sm border-l-4 border-pink-400 relative">
-                        <div class="absolute -left-3 top-5 w-5 h-5 rounded-full bg-pink-400 border-4 border-white"></div>
-                        <h4 class="font-bold text-primary">Тиждень 3: Соціальний Доказ</h4>
-                        <p class="text-sm mt-1">Публікація кейсів (анонімних історій успіху): "Як Афіна перестала глушити вечірній стрес вином".</p>
-                    </div>
-
-                    <div class="bg-white p-5 rounded-lg shadow-sm border-l-4 border-pink-600 relative">
-                        <div class="absolute -left-3 top-5 w-5 h-5 rounded-full bg-pink-600 border-4 border-white"></div>
-                        <h4 class="font-bold text-primary">Тиждень 4: Лояльність & Масштабування</h4>
-                        <p class="text-sm mt-1">Збір відгуків від поточних клієнтів та стимулювання сарафанного радіо через закриті пропозиції.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-    </main>
-
-    <script>
-        function wrapLabelText(label, limit = 16) {
-            const words = label.split(' ');
-            let lines = [];
-            let currentLine = words[0];
-            
-            for (let i = 1; i < words.length; i++) {
-                if (currentLine.length + words[i].length + 1 <= limit) {
-                    currentLine += ' ' + words[i];
-                } else {
-                    lines.push(currentLine);
-                    currentLine = words[i];
-                }
-            }
-            lines.push(currentLine);
-            return lines;
-        }
-
-        const tooltipConfig = {
-            callbacks: {
-                title: function(tooltipItems) {
-                    const item = tooltipItems[0];
-                    let label = item.chart.data.labels[item.dataIndex];
-                    if (Array.isArray(label)) {
-                        return label.join(' ');
-                    } else {
-                        return label;
-                    }
-                }
-            }
-        };
-
-        const funnelRawLabels = [
-            "1. Обізнаність (Охоплення Reels/Ads)",
-            "2. Інтерес (Пройшли тест на сайті)",
-            "3. Усвідомлення (Ознайомились з результатом)",
-            "4. Конверсія (Записались на діагностику)",
-            "5. Терапія (Почали повноцінний курс)",
-            "6. Лояльність (Залишили відгук/Рекомендацію)"
-        ];
+      <div class="vz3-types__grid">
+        <div class="vz3-type">
+          <div class="vz3-type__icon">🍷</div>
+          <h3 class="vz3-type__name">Алкогольна</h3>
+        </div>
+        <div class="vz3-type">
+          <div class="vz3-type__icon">🎰</div>
+          <h3 class="vz3-type__name">Ігрова<br>(лудоманія)</h3>
+        </div>
         
-        // Оптимізація обгортання для вертикальних стовпчиків
-        const funnelWrappedLabels = funnelRawLabels.map(label => wrapLabelText(label, 14));
+        <!-- Замінено наркотичну на харчову згідно завдання -->
+        <div class="vz3-type">
+          <div class="vz3-type__icon">🍽️</div>
+          <h3 class="vz3-type__name">Харчова<br>(розлади харчової поведінки)</h3>
+        </div>
 
-        const ctxFunnel = document.getElementById('funnelChart').getContext('2d');
-        new Chart(ctxFunnel, {
-            type: 'bar',
-            data: {
-                labels: funnelWrappedLabels,
-                datasets: [{
-                    label: 'Кількість потенційних клієнтів',
-                    data: [1500, 450, 150, 35, 10, 3],
-                    backgroundColor: [
-                        '#1E3A8A',
-                        '#3B82F6',
-                        '#60A5FA',
-                        '#EC4899',
-                        '#F472B6',
-                        '#FBCFE8'
-                    ],
-                    borderRadius: 8
-                }]
-            },
-            options: {
-                maintainAspectRatio: false,
-                responsive: true,
-                plugins: {
-                    legend: { display: false },
-                    tooltip: tooltipConfig
-                },
-                scales: {
-                    x: {
-                        grid: { display: false },
-                        ticks: {
-                            font: { size: 11 },
-                            autoSkip: false
-                        }
-                    },
-                    y: {
-                        beginAtZero: true,
-                        grid: { color: '#E2E8F0' },
-                        title: { display: true, text: 'Прогнозована кількість', color: '#64748B' }
-                    }
-                }
-            }
-        });
+        <div class="vz3-type">
+          <div class="vz3-type__icon">🚬</div>
+          <h3 class="vz3-type__name">Нікотинова</h3>
+        </div>
+        <div class="vz3-type">
+          <div class="vz3-type__icon">📱</div>
+          <h3 class="vz3-type__name">Цифрова та ігрова</h3>
+        </div>
+        <div class="vz3-type">
+          <div class="vz3-type__icon">💔</div>
+          <h3 class="vz3-type__name">Кодова<br>поведінка</h3>
+        </div>
+      </div>
+    </div>
+  </section>
 
-        const planRawLabels = [
-            "Початок (День 0)",
-            "Кінець Тижня 1 (Охоплення)",
-            "Кінець Тижня 2 (Діагностика)",
-            "Кінець Тижня 3 (Кейси)",
-            "Кінець Тижня 4 (Ціль досягнуто)"
-        ];
-        const planWrappedLabels = planRawLabels.map(label => wrapLabelText(label));
 
-        const ctxPlan = document.getElementById('planChart').getContext('2d');
-        new Chart(ctxPlan, {
-            type: 'line',
-            data: {
-                labels: planWrappedLabels,
-                datasets: [{
-                    label: 'Накопичена кількість клієнток у терапії',
-                    data: [0, 1, 4, 7, 10],
-                    borderColor: '#EC4899',
-                    backgroundColor: 'rgba(236, 72, 153, 0.2)',
-                    borderWidth: 4,
-                    pointBackgroundColor: '#1E3A8A',
-                    pointRadius: 6,
-                    pointHoverRadius: 8,
-                    fill: true,
-                    tension: 0.3
-                }]
-            },
-            options: {
-                maintainAspectRatio: false,
-                responsive: true,
-                plugins: {
-                    legend: { display: false },
-                    tooltip: tooltipConfig
-                },
-                scales: {
-                    x: {
-                        grid: { display: false }
-                    },
-                    y: {
-                        beginAtZero: true,
-                        max: 12,
-                        ticks: { stepSize: 2 },
-                        grid: { color: '#E2E8F0' },
-                        title: { display: true, text: 'Кількість клієнток', color: '#64748B' }
-                    }
-                }
-            }
-        });
-    </script>
-</body>
-</html>
+  <!-- ===== 3. COST OF ADDICTION (4 cards) ===== -->
+  <section class="vz3-cost">
+    <div class="vz3-container">
+      <div class="vz3-cost__head">
+        <span class="vz3-tag">Що насправді коштує залежність</span>
+        <h2 class="vz3-h2">Залежність <em>не існує</em> в ізоляції — вона руйнує всю систему життя</h2>
+        <p class="vz3-lede">
+          Це не питання сили волі. Це питання нейробіології, психології і соціальних звʼязків — які пошкоджуються одночасно.
+        </p>
+      </div>
+
+      <div class="vz3-cost__grid">
+        <div class="vz3-cost-card">
+          <div class="vz3-cost-card__icon">🧠</div>
+          <h3>Здоровʼя і свідомість</h3>
+          <p>Поступове руйнування когнітивних функцій, втрата контролю над емоціями, фізичні захворювання. Тіло платить першим.</p>
+        </div>
+
+        <div class="vz3-cost-card">
+          <div class="vz3-cost-card__icon">👨‍👩‍👧</div>
+          <h3>Стосунки і близькі</h3>
+          <p>Партнер живе у постійній тривозі. Діти ростуть у нестабільному середовищі. Друзі віддаляються. Самотність наростає.</p>
+        </div>
+
+        <div class="vz3-cost-card">
+          <div class="vz3-cost-card__icon">💼</div>
+          <h3>Карʼєра і фінанси</h3>
+          <p>Втрата фокусу, пропущені рішення, прихований борг. Кар'єрна траєкторія повільно йде вниз — інколи навіть не помітно.</p>
+        </div>
+
+        <div class="vz3-cost-card">
+          <div class="vz3-cost-card__icon">🌑</div>
+          <h3>Сенс і ідентичність</h3>
+          <p>Людина перестає впізнавати себе. Те, що раніше приносило радість, втрачає сенс. Самооцінка падає у темряву.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ===== 4. PHILOSOPHY (3 stages) ===== -->
+  <section class="vz3-philosophy" id="vz3-philosophy">
+    <div class="vz3-container">
+      <div class="vz3-philosophy__head">
+        <span class="vz3-tag">Наша філософія</span>
+        <h2 class="vz3-h2">Три стадії, які проходить <em>кожна людина</em> на шляху до зцілення</h2>
+        <p class="vz3-lede">
+          Ми вибрали назву «Vzaiemodiia» не випадково. Це фінальна точка шляху, на яку ми приводимо клієнта — від внутрішнього розриву до здорової взаємодії з собою, близькими і світом.
+        </p>
+      </div>
+
+      <div class="vz3-philosophy__formula">
+        <span class="step">Залежність</span>
+        <span class="arrow">→</span>
+        <span class="step">Незалежність</span>
+        <span class="arrow">→</span>
+        <span class="step active">Взаємодія</span>
+      </div>
+
+      <div class="vz3-philosophy__grid">
+        <div class="vz3-stage">
+          <div class="vz3-stage__num">01 · ВІДПРАВНА ТОЧКА</div>
+          <h3>Залежність</h3>
+          <p>Стан, у якому речовина, поведінка або інша людина контролюють вас. Ваші рішення приймає не ви — їх приймає система, яка сформувалась поза вашим контролем.</p>
+          <p><strong>Це не про слабкість.</strong> Це про нейробіологію, психологію і середовище — які працюють проти вас.</p>
+        </div>
+
+        <div class="vz3-stage">
+          <div class="vz3-stage__num">02 · ПЕРЕХІДНА СТАДІЯ</div>
+          <h3>Незалежність</h3>
+          <p>Перший етап звільнення. Людина повертає собі право на вибір. Прибирає те, що руйнує. Це необхідна, але <strong>не достатня</strong> стадія.</p>
+          <p>Більшість «лікувань» зупиняються тут — і саме тому зриви настільки часті. Незалежність без наступного кроку — це порожнеча.</p>
+        </div>
+
+        <div class="vz3-stage vz3-stage--active">
+          <div class="vz3-stage__num">03 · НАША МІСІЯ</div>
+          <h3>Взаємодія</h3>
+          <p>Стан, у якому ви <strong>здоровим чином взаємодієте</strong> з собою, близькими, роботою і світом. Це не «утримання» — це нове життя з новою архітектурою рішень.</p>
+          <p>Саме сюди ми ведемо клієнта. Не до моменту «перестав», а до моменту «не хочеться повертатись».</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ===== 5. METHOD (science-based) ===== -->
+  <section class="vz3-method">
+    <div class="vz3-container">
+      <div class="vz3-method__head">
+        <span class="vz3-tag">Науково-доказовий підхід</span>
+        <h2 class="vz3-h2">Не «душевно поговоримо». <em>Конкретні методики</em> з доведеною ефективністю</h2>
+        <p class="vz3-lede">
+          Vzaiemodiia інтегрує підходи з найкращих світових шкіл — адаптовані до українського контексту і мови.
+        </p>
+      </div>
+
+      <div class="vz3-method__grid">
+        <div class="vz3-method-card">
+          <span class="vz3-method-card__tag">CBT · Гайд-метод</span>
+          <h3>Когнітивно-поведінкова терапія</h3>
+          <p>Робота з автоматичними думками, які запускають цикл залежності. Розпізнавання тригерів і побудова нових поведінкових патернів.</p>
+          <div class="vz3-method-card__evidence">
+            Базується на 40+ роках клінічних досліджень. Рекомендована APA та NICE як перша лінія психотерапевтичної інтервенції при залежностях.
+          </div>
+        </div>
+
+        <div class="vz3-method-card">
+          <span class="vz3-method-card__tag">MI · Motivational Interviewing</span>
+          <h3>Мотиваційне інтервʼювання</h3>
+          <p>Робота з амбівалентністю — типовим станом залежної людини («і хочу зупинитись, і не хочу»). Підвищення внутрішньої мотивації через структурований діалог.</p>
+          <div class="vz3-method-card__evidence">
+            Розроблено William Miller (University of New Mexico). Доведена ефективність у 200+ randomized controlled trials.
+          </div>
+        </div>
+
+        <div class="vz3-method-card">
+          <span class="vz3-method-card__tag">Family Systems</span>
+          <h3>Робота з сімейною системою</h3>
+          <p>Залежність — це не «проблема людини», це проблема системи. Тому ми працюємо не тільки з клієнтом, але і з близькими — за їх згодою.</p>
+          <div class="vz3-method-card__evidence">
+            Інтегрована модель Murray Bowen + сучасні протоколи CRAFT (Community Reinforcement and Family Training).
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ===== 6. STATS BAR ===== -->
+  <section class="vz3-stats">
+    <div class="vz3-container">
+      <div class="vz3-stats__grid">
+        <div class="vz3-stat">
+          <div class="vz3-stat__num">15<em>+</em></div>
+          <div class="vz3-stat__label">років клінічного досвіду</div>
+        </div>
+        <div class="vz3-stat">
+          <div class="vz3-stat__num">500<em>+</em></div>
+          <div class="vz3-stat__label">клієнтів пройшли через нашу студію</div>
+        </div>
+        <div class="vz3-stat">
+          <div class="vz3-stat__num">12</div>
+          <div class="vz3-stat__label">спеціалістів з різних напрямків</div>
+        </div>
+        <div class="vz3-stat">
+          <div class="vz3-stat__num">100%</div>
+          <div class="vz3-stat__label">конфіденційність роботи</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ===== 7. WHY US (3 pillars) ===== -->
+  <section class="vz3-difference">
+    <div class="vz3-container">
+      <div class="vz3-difference__head">
+        <span class="vz3-tag">Чому Vzaiemodiia</span>
+        <h2 class="vz3-h2">Що відрізняє нас від <em>усіх інших</em> в українському сегменті</h2>
+        <p class="vz3-lede">
+          Ми не просто «ще одна студія психологів». Ми побудували інший продукт — і ось три причини, чому він працює там, де інші підходи зривались.
+        </p>
+      </div>
+
+      <div class="vz3-difference__grid">
+        <div class="vz3-diff-pillar">
+          <div class="vz3-diff-pillar__num">1</div>
+          <h3>Інтегрована команда</h3>
+          <p>12 спеціалістів різних спеціалізацій працюють разом над однією справою клієнта. Психотерапевт, психіатр, сімейний терапевт, соціальний працівник — без переходів між клініками.</p>
+        </div>
+
+        <div class="vz3-diff-pillar">
+          <div class="vz3-diff-pillar__num">2</div>
+          <h3>Прогнозований процес</h3>
+          <p>Кожен клієнт отримує письмовий план з фазами і метриками прогресу. Не «приходьте раз на тиждень — побачимо», а «ось де ви зараз, ось куди прийдемо, ось коли».</p>
+        </div>
+
+        <div class="vz3-diff-pillar">
+          <div class="vz3-diff-pillar__num">3</div>
+          <h3>Українською. Без стигми.</h3>
+          <p>Перший в Україні центр, який працює з залежностями без діагнозів у медичних картках, без передач у клінічні бази, без публічності. Конфіденційність — частина методики.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ===== 8. RELAPSE (адресуємо страх зривів) ===== -->
+  <section class="vz3-relapse">
+    <div class="vz3-container">
+      <div class="vz3-relapse__grid">
+        <div class="vz3-relapse__content">
+          <span class="vz3-tag">Якщо вже були зриви</span>
+          <h2>Зрив — це <em>не провал</em>. Це інформація, з якою треба правильно працювати.</h2>
+          <p>
+            Якщо ви або ваш близький вже пробували — і поверталось — це <strong>не означає, що ви безнадійні</strong>. Це означає, що попередні підходи не врахували ключове: <strong>залежність — це системна проблема</strong>, яку не можна вирішити одним інструментом.
+          </p>
+          <p>
+            Ми спеціалізуємось на <strong>складних випадках з історією зривів</strong>. Наш протокол враховує те, що інші не врахували: біологічні тригери, соціальні паттерни, сімейну динаміку. Кожен попередній зрив — це урок, який ми використовуємо у вашій програмі.
+          </p>
+          <p>
+            <strong>Це не означає легко.</strong> Це означає — реалістично. Зі стійким результатом.
+          </p>
+        </div>
+
+        <div class="vz3-relapse__visual">
+          <div class="vz3-relapse__stat">
+            <div class="vz3-relapse__stat-num">3–5</div>
+            <div class="vz3-relapse__stat-label">середня кількість спроб у людей,<br>які прийшли до нас з історією зривів</div>
+          </div>
+          <ul class="vz3-relapse__list">
+            <li>Враховуємо повний контекст попередніх спроб</li>
+            <li>Робимо detailed аналіз тригерів попередніх зривів</li>
+            <li>Інтегруємо релапс-prevention як окрему фазу</li>
+            <li>Працюємо з сімейною системою паралельно</li>
+            <li>Aftercare-супровід після закінчення основної програми</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ===== 9. JOURNEY (4 steps how to start) ===== -->
+  <section class="vz3-journey">
+    <div class="vz3-container">
+      <div class="vz3-journey__head">
+        <span class="vz3-tag">Як почати</span>
+        <h2 class="vz3-h2">Чотири кроки від <em>першого контакту</em> до початку роботи</h2>
+        <p class="vz3-lede">
+          Перший крок — це найважче. Тому ми зробили його максимально простим і ні до чого не зобовʼязуючим.
+        </p>
+      </div>
+
+      <div class="vz3-journey__steps">
+        <div class="vz3-step">
+          <div class="vz3-step__num">1</div>
+          <h3>Заявка</h3>
+          <p>Заповнюєте коротку форму — 2 хвилини. Або пишете напряму у Telegram.</p>
+        </div>
+
+        <div class="vz3-step">
+          <div class="vz3-step__num">2</div>
+          <h3>Перший дзвінок</h3>
+          <p>30 хвилин з координатором. Безкоштовно. Анонімно. Без зобовʼязань.</p>
+        </div>
+
+        <div class="vz3-step">
+          <div class="vz3-step__num">3</div>
+          <h3>Підбір спеціаліста</h3>
+          <p>Аналізуємо вашу ситуацію і підбираємо відповідного фахівця або команду.</p>
+        </div>
+
+        <div class="vz3-step">
+          <div class="vz3-step__num">4</div>
+          <h3>Початок роботи</h3>
+          <p>Перша сесія з обраним спеціалістом — у зручний для вас формат.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ===== 10. TEAM PREVIEW ===== -->
+  <section class="vz3-team">
+    <div class="vz3-container">
+      <div class="vz3-team__head">
+        <span class="vz3-tag">Наша команда</span>
+        <h2 class="vz3-h2">12 спеціалістів. <em>Одна філософія</em>. Інтегрована робота над вашою справою.</h2>
+        <p class="vz3-lede">
+          Кожен експерт — це 10+ років профільної підготовки, регулярні супервізії, постійне навчання за міжнародними протоколами.
+        </p>
+      </div>
+
+      <!-- !!! РОЗРОБНИКУ: замінити avatars на справжні фото
+           через background-image у CSS .vz3-expert__photo -->
+      <div class="vz3-team__grid">
+        <div class="vz3-expert">
+          <div class="vz3-expert__photo">ТП</div>
+          <h3 class="vz3-expert__name">Тетяна Павлусів</h3>
+          <p class="vz3-expert__role">Психотерапевт, засновниця</p>
+          <p class="vz3-expert__spec">Алкогольні залежності, high-functioning кейси</p>
+        </div>
+
+        <div class="vz3-expert">
+          <div class="vz3-expert__photo">РК</div>
+          <h3 class="vz3-expert__name">Ростислав К.</h3>
+          <p class="vz3-expert__role">Психіатр-нарколог</p>
+          <p class="vz3-expert__spec">Медикаментозний супровід, абстиненція</p>
+        </div>
+
+        <div class="vz3-expert">
+          <div class="vz3-expert__photo">АЧ</div>
+          <h3 class="vz3-expert__name">Аліса Ч.</h3>
+          <p class="vz3-expert__role">Сімейний терапевт</p>
+          <p class="vz3-expert__spec">Робота з близькими залежних</p>
+        </div>
+
+        <div class="vz3-expert">
+          <div class="vz3-expert__photo">+9</div>
+          <h3 class="vz3-expert__name">Ще 9 спеціалістів</h3>
+          <p class="vz3-expert__role">Різні напрямки</p>
+          <p class="vz3-expert__spec">Подивитись повну команду →</p>
+        </div>
+      </div>
+
+      <div class="vz3-team__cta">
+        <a href="/team/" class="vz3-btn vz3-btn--secondary">Познайомитись з усією командою</a>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ===== 11. TESTIMONIALS ===== -->
+  <section class="vz3-testimonials">
+    <div class="vz3-container">
+      <div class="vz3-testimonials__head">
+        <span class="vz3-tag">Що пишуть клієнти</span>
+        <h2 class="vz3-h2">Голоси тих, хто <em>пройшов шлях</em></h2>
+        <p class="vz3-lede">
+          Імена і деталі змінено для конфіденційності. Зміст відгуків — без правок.
+        </p>
+      </div>
+
+      <div class="vz3-testimonials__grid">
+        <div class="vz3-testimonial">
+          <p class="vz3-testimonial__text">
+            До Vzaiemodiia я вже пробувала три рази в інших місцях. Кожен раз — півроку, потім зрив. Тут вперше відчула, що мене не лікують від «алкоголізму», а допомагають перебудувати все життя. Минуло півтора року — більше не повертаюсь.
+          </p>
+          <div class="vz3-testimonial__author">
+            <div class="vz3-testimonial__avatar">О.М.</div>
+            <div>
+              <p class="vz3-testimonial__name">Оксана М.</p>
+              <p class="vz3-testimonial__role">Маркетингова директорка, 42 роки</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="vz3-testimonial">
+          <p class="vz3-testimonial__text">
+            Звернулась через брата. Гральна залежність майже коштувала йому бізнесу. Vzaiemodiia спочатку працювали зі мною — як зрозуміти, як комунікувати, як не нашкодити. Через два місяці брат сам прийшов. Без тиску — це найголовніше.
+          </p>
+          <div class="vz3-testimonial__author">
+            <div class="vz3-testimonial__avatar">К.Б.</div>
+            <div>
+              <p class="vz3-testimonial__name">Катерина Б.</p>
+              <p class="vz3-testimonial__role">Сестра клієнта, IT-фахівчиня</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="vz3-testimonial">
+          <p class="vz3-testimonial__text">
+            15 років на стимулянтах. Все це називали «робочою активністю». Жодна клініка не хотіла братись — «у вас немає діагнозу». Vzaiemodiia побачили проблему до того, як вона стала клінічною. За 4 місяці я знову сплю по 7 годин і не потребую кофеїну на щодень.
+          </p>
+          <div class="vz3-testimonial__author">
+            <div class="vz3-testimonial__avatar">Д.Р.</div>
+            <div>
+              <p class="vz3-testimonial__name">Дмитро Р.</p>
+              <p class="vz3-testimonial__role">Власник tech-стартапу, 39 років</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="vz3-testimonial">
+          <p class="vz3-testimonial__text">
+            Я не вірив у психотерапію. Прийшов тільки тому, що дружина сказала «або це, або розлучення». Виявилось — це не «терапія», це структурована робота з конкретною ціллю. Через 5 місяців ми разом, і я почуваюсь людиною, якою був до того, як почав пити.
+          </p>
+          <div class="vz3-testimonial__author">
+            <div class="vz3-testimonial__avatar">В.К.</div>
+            <div>
+              <p class="vz3-testimonial__name">Василь К.</p>
+              <p class="vz3-testimonial__role">Інженер, керівник проєктів, 48 років</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ===== 12. FAQ ===== -->
+  <section class="vz3-faq">
+    <div class="vz3-container">
+      <div class="vz3-faq__head">
+        <span class="vz3-tag">Часті питання</span>
+        <h2 class="vz3-h2">Що зазвичай <em>питають</em> перед першим зверненням</h2>
+        <p class="vz3-lede">
+          Якщо у вас є питання, якого тут немає — напишіть напряму у Telegram або через форму на сторінці контактів.
+        </p>
+      </div>
+
+      <div class="vz3-faq__list">
+        <div class="vz3-faq__item">
+          <details>
+            <summary>Це лікування чи психотерапія?</summary>
+            <div class="vz3-faq__answer">
+              <p>Залежить від ситуації. У більшості випадків це психотерапевтична робота — без медикаментів і клінічних діагнозів. Якщо потрібна медикаментозна підтримка (наприклад, при гострих станах) — у нашій команді є психіатр-нарколог, який працює у захищеному форматі.</p>
+              <p>Конкретний формат визначається після першої консультації.</p>
+            </div>
+          </details>
+        </div>
+
+        <div class="vz3-faq__item">
+          <details>
+            <summary>Чи будуть медичні картки або записи в державних базах?</summary>
+            <div class="vz3-faq__answer">
+              <p>Ні. Усі записи зберігаються тільки у наших захищених внутрішніх системах. Жодних передач до клінічних баз, страхових компаній, державних реєстрів — це принциповий момент роботи нашої студії.</p>
+              <p>На старті ми підписуємо NDA, який юридично закріплює конфіденційність.</p>
+            </div>
+          </details>
+        </div>
+
+        <div class="vz3-faq__item">
+          <details>
+            <summary>Скільки часу потрібно на «вилікування»?</summary>
+            <div class="vz3-faq__answer">
+              <p>Чесна відповідь: <strong>залежить від типу і стадії залежності, історії зривів, готовності оточення.</strong></p>
+              <p>Орієнтовно: основна робота — від 3 до 6 місяців. Aftercare-супровід — додатково 3-12 місяців. Після першої консультації ми складемо для вас орієнтовний прогноз з фазами.</p>
+              <p>Ми не обіцяємо «вилікувати за 21 день» — таких пропозицій варто остерігатись.</p>
+            </div>
+          </details>
+        </div>
+
+        <div class="vz3-faq__item">
+          <details>
+            <summary>Я (або мій близький) вже не раз пробували. Чи спрацює цього разу?</summary>
+            <div class="vz3-faq__answer">
+              <p>Спеціально для людей з історією зривів у нас є <strong>окремий протокол</strong>. Кожен попередній зрив — це інформація, з якою ми працюємо: чому він стався, які тригери були неврахованими, що системно не сходилось.</p>
+              <p>Це не дає 100% гарантії (її ніхто на ринку чесно дати не може), але суттєво підвищує ймовірність стійкого результату порівняно з повторенням того, що вже не спрацювало.</p>
+            </div>
+          </details>
+        </div>
+
+        <div class="vz3-faq__item">
+          <details>
+            <summary>Я звертаюсь за близьким — він/вона не визнає проблему. Що робити?</summary>
+            <div class="vz3-faq__answer">
+              <p>Дуже частий і важливий запит. У нас є <strong>окрема програма для близьких</strong>: як комунікувати, як не нашкодити, як побудувати умови, у яких залежна людина сама захоче змін.</p>
+              <p>Ми починаємо з вас. Через 1–3 місяці у багатьох випадках близький приєднується до роботи самостійно — без тиску і конфлікту.</p>
+            </div>
+          </details>
+        </div>
+
+        <div class="vz3-faq__item">
+          <details>
+            <summary>Скільки коштують ваші послуги?</summary>
+            <div class="vz3-faq__answer">
+              <p>Ціна залежить від вибраного формату: індивідуальні сесії, інтенсивні програми, сімейний супровід. Базова консультація — від 1500 ₴ за 50 хвилин.</p>
+              <p>Конкретна вартість програми обговорюється після першої безкоштовної консультації з координатором — коли ми розуміємо обсяг і складність роботи.</p>
+              <p>Можлива оплата в розстрочку.</p>
+            </div>
+          </details>
+        </div>
+
+        <div class="vz3-faq__item">
+          <details>
+            <summary>Чи можна онлайн?</summary>
+            <div class="vz3-faq__answer">
+              <p>Так. Більшість видів роботи можна проводити у онлайн-форматі через захищений Zoom. Для деяких випадків (наприклад, медикаментозний супровід при гострих станах) — потрібна очна зустріч принаймні на старті.</p>
+              <p>Працюємо з клієнтами по всьому світу — у будь-якому часовому поясі.</p>
+            </div>
+          </details>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ===== 13. FINAL CTA + ФОРМА ЗАХОПЛЕННЯ ===== -->
+  <section class="vz3-final-cta" id="vz3-final-cta">
+    <div class="vz3-container">
+      <div class="vz3-final-cta__inner">
+        <h2>Перший крок — <em>безкоштовний</em>. І нічого не зобовʼязує.</h2>
+        <p>
+          30 хвилин з координатором. Анонімно. Ми разом подивимось на вашу (або близького) ситуацію, проговоримо, який формат роботи підходить, і чи підходить вам ми. Без продажу. Без тиску.
+        </p>
+        
+        <div class="vz3-final-cta__row">
+          <!-- Стандартні кнопки залишаються -->
+          <a href="https://calendly.com/your-link" class="vz3-btn vz3-btn--primary vz3-btn--lg">
+            Обрати час у календарі
+          </a>
+          <a href="/contact/" class="vz3-btn vz3-btn--secondary vz3-btn--lg" style="border-color: white; color: white;">
+            Написати у Telegram
+          </a>
+        </div>
+
+        <!-- РОЗШИРЕННЯ КОНВЕРСІЇ: Вбудована форма швидкого зв'язку -->
+        <div class="vz3-lead-form">
+          <h3>Або залиште телефон</h3>
+          <p>Ми перетелефонуємо вам протягом 15 хвилин у робочий час для узгодження деталей.</p>
+          <form action="/submit-form.php" method="POST">
+            <div class="vz3-form-group">
+              <input type="text" name="name" class="vz3-form-input" placeholder="Як до вас звертатись?" required>
+            </div>
+            <div class="vz3-form-group">
+              <input type="tel" name="phone" class="vz3-form-input" placeholder="+380 (__) ___ __ __" required>
+            </div>
+            <button type="submit" class="vz3-form-submit">Чекаю на дзвінок</button>
+            <p class="vz3-form-disclaimer">Натискаючи кнопку, ви погоджуєтесь з політикою повної конфіденційності.</p>
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+</div>
+<!-- /.vz3-root -->
+
+
+<script>
+(function() {
+  'use strict';
+
+  window.vz3Scroll = function(event, targetId) {
+    event.preventDefault();
+    var el = document.getElementById(targetId);
+    if (!el) return;
+    var headerOffset = 80;
+    var pos = el.getBoundingClientRect().top + window.pageYOffset - headerOffset;
+    window.scrollTo({ top: pos, behavior: 'smooth' });
+  };
+
+  // Subtle scroll animations
+  if ('IntersectionObserver' in window) {
+    var observer = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+
+    var targets = document.querySelectorAll('.vz3-cost-card, .vz3-stage, .vz3-method-card, .vz3-diff-pillar, .vz3-step, .vz3-expert, .vz3-testimonial, .vz3-type');
+    targets.forEach(function(el) {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(24px)';
+      el.style.transition = 'opacity 0.6s ease-out, transform 0.6s ease-out';
+      observer.observe(el);
+    });
+  }
+})();
+</script>
